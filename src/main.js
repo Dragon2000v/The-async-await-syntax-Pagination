@@ -78,25 +78,25 @@ async function onSearch(e) {
         theme: 'dark',
         position: 'topRight',
         message:
-          'An error occurred while fetching images. Please try again later.',
+          'An error occurred while fetching images. Please try again later..',
         backgroundColor: '#ef4040',
         iconUrl: errorPng,
         maxWidth: '432px',
         timeout: 2000,
       });
-
+      toggleLoadMoreButton(false);
       return;
     }
     renderGallery(imageData.hits);
     input.value = '';
     toggleLoadMoreButton(imageData.totalHits);
   } catch (error) {
-    console.error('Error fetching images:', error);
+    //console.error('Error fetching images:', error);
     iziToast.error({
       theme: 'dark',
       position: 'topRight',
       message:
-        'An error occurred while fetching images. Please try again later.',
+        `An error occurred while fetching images. ${error}`,
       backgroundColor: '#ef4040',
       iconUrl: errorPng,
       maxWidth: '432px',
@@ -123,17 +123,17 @@ async function onLoadMore() {
       behavior: 'smooth',
     });
   } catch (error) {
-    console.error('Error fetching more images:', error);
-    iziToast.error({
-      theme: 'dark',
+    //console.error('Error fetching more images:', error);
+    iziToast.warning({
+      title: 'Caution',
+      message: 'No more images found.',
+      backgroundColor: '#FFA000',
       position: 'topRight',
-      message:
-        'An error occurred while fetching images. Please try again later.',
-      backgroundColor: '#ef4040',
-      iconUrl: errorPng,
-      maxWidth: '432px',
+      theme: 'dark',
+      iconUrl: '',
       timeout: 2000,
     });
+    toggleLoadMoreButton(false);
   } finally {
     loader.classList.remove('isVisible');
   }

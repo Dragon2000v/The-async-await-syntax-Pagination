@@ -1,5 +1,3 @@
-// render-functions.js
-
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -12,7 +10,7 @@ export function renderLoader() {
 export function renderGallery(imagesData) {
   const gallery = document.querySelector('.gallery');
 
-  // Перевіряємо, чи існує контейнер .gallery
+
   if (!gallery) {
     console.error('Error: Gallery container not found');
     return;
@@ -31,8 +29,8 @@ export function renderGallery(imagesData) {
     img.src = image.webformatURL;
     img.dataset.source = image.largeImageURL;
     img.alt = image.tags;
-    img.width = 360;
-    img.height = 200;
+    img.width = '360px';
+    img.height = 'auto';
 
     link.appendChild(img);
 
@@ -62,6 +60,20 @@ export function renderGallery(imagesData) {
     galleryItem.append(link, descList);
     gallery.appendChild(galleryItem);
   });
+
+  if (imagesData.length === 0) {
+    iziToast.error({
+      theme: 'dark',
+      position: 'topRight',
+      message:
+        'An error occurred while fetching images. Please try again later.',
+      backgroundColor: '#ef4040',
+      iconUrl: errorPng,
+      maxWidth: '432px',
+      timeout: 2000,
+    });
+    toggleLoadMoreButton(false); // Скрыть кнопку "Загрузить еще"
+  }
 
   if (imagesData.length > 0) {
     new SimpleLightbox('.gallery a', {

@@ -1,5 +1,3 @@
-// pixabay-api.js
-
 import axios from 'axios';
 
 const KEY = '43342378-f760c13e6ac2de41c368148af';
@@ -15,12 +13,13 @@ export async function getImage(imgSearch, page) {
         orientation: 'horizontal',
         safesearch: true,
         page: page,
-        per_page: 15,
+        per_page: 200,
       },
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching images:', error);
+   // console.error('Error fetching images:', error);
     throw error;
   }
 }
+
