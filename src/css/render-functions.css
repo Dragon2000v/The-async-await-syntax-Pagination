@@ -165,3 +165,33 @@ button:hover {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
 }
+
+.search-button {
+  width: 90px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #4e75ff;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
+  border-style: none;
+}
+
+.search-button:hover,
+.search-button:focus {
+  background: #6c8cff;
+}
+
+.load-button {
+  display: block;
+  width: 125px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 32px;
+  margin-bottom: 20px;
+}
+
+.is-hidden {
+  display: none;
+}
