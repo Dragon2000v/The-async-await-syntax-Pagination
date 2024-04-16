@@ -74,7 +74,6 @@ async function onSearch(e) {
   try {
     const imageData = await getImage(query, page);
     if (imageData.hits.length === 0) {
-      // Вивести повідомлення про помилку, якщо статус не "OK"
       iziToast.error({
         theme: 'dark',
         position: 'topRight',
@@ -90,8 +89,6 @@ async function onSearch(e) {
       return;
     }
     renderGallery(imageData.hits);
-   
-
     toggleLoadMoreButton(imageData.totalHits);
   } catch (error) {
     //console.error('Error fetching images:', error);

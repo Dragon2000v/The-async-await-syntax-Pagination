@@ -1,5 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 export function renderLoader() {
   const loader = document.createElement('span');
@@ -72,7 +74,7 @@ export function renderGallery(imagesData) {
       maxWidth: '432px',
       timeout: 2000,
     });
-    toggleLoadMoreButton(false); // Скрыть кнопку "Загрузить еще"
+    toggleLoadMoreButton(false, 'No images found.'); // Скрыть кнопку "Загрузить еще"
   }
 
   if (imagesData.length > 0) {
@@ -83,11 +85,24 @@ export function renderGallery(imagesData) {
   }
 }
 
-export function toggleLoadMoreButton(show) {
+export function toggleLoadMoreButton(show,  message = '') {
   const loadMoreBtn = document.querySelector('.load-button');
   if (show) {
     loadMoreBtn.classList.remove('is-hidden');
   } else {
     loadMoreBtn.classList.add('is-hidden');
+    if (message) {
+      iziToast.warning({
+        title: 'Caution',
+        message: message,
+        backgroundColor: '#FFA000',
+        position: 'topRight',
+        theme: 'dark',
+        iconUrl: '',
+        timeout: 2000,
+      });
+    }
+    
   }
 }
+ 
