@@ -48,6 +48,7 @@ form.addEventListener('submit', onSearch);
 
 let page = 1;
 let query = '';
+let per_page = 15;
 
 async function onSearch(e) {
   e.preventDefault();
@@ -78,7 +79,7 @@ async function onSearch(e) {
         theme: 'dark',
         position: 'topRight',
         message:
-          'An error occurred while fetching images. Please try again later..',
+          'image not found!',
         backgroundColor: '#ef4040',
         iconUrl: errorPng,
         maxWidth: '432px',
@@ -131,7 +132,7 @@ async function onLoadMore() {
         timeout: 2000,
       });
     }
-    toggleLoadMoreButton(imageData.totalHits > page * 15);
+    toggleLoadMoreButton(imageData.totalHits > page * per_page);
     // Smooth scroll to bottom
     window.scrollBy({
       top: window.innerHeight,
