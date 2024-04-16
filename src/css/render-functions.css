@@ -10,6 +10,7 @@
 .gallery-image {
   width: 360px;
   height: 200px;
+  object-fit: cover;
   transition: transform 0.3s;
 }
 .gallery-item {
@@ -165,6 +166,7 @@ button:hover {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
 }
+
 
 .search-button {
   width: 90px;
