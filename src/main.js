@@ -86,10 +86,17 @@ async function onSearch(e) {
       });
       toggleLoadMoreButton(false);
       input.value = '';
+      
       return;
     }
+    input.value = '';
     renderGallery(imageData.hits);
-    toggleLoadMoreButton(imageData.totalHits);
+    if (isAllImagesDisplayed()) { 
+      toggleLoadMoreButton(false); // Приховати кнопку "Загрузити ще"
+    } else {
+      toggleLoadMoreButton(true); // Показати кнопку "Загрузити ще"
+    }
+    //toggleLoadMoreButton(imageData.totalHits);
   } catch (error) {
     //console.error('Error fetching images:', error);
     iziToast.error({
@@ -103,6 +110,7 @@ async function onSearch(e) {
       timeout: 2000,
     });
   } finally {
+    
     // Hide loader
     loader.classList.remove('isVisible');
   }
@@ -151,3 +159,19 @@ async function onLoadMore() {
     loader.classList.remove('isVisible');
   }
 }
+
+function isAllImagesDisplayed() {
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  if (!galleryItems.length) {
+    // Якщо немає зображень, повертаємо false
+    return false;
+  }
+
+  const lastImage = galleryItems[galleryItems.length - 1];
+  const lastImageRect = lastImage.getBoundingClientRect();
+
+  // Перевіряємо, чи нижній край останнього зображення більше або рівний висоті вікна
+  return lastImageRect.bottom <= window.innerHeight;
+}
+
+
