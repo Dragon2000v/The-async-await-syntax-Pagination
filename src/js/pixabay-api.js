@@ -13,7 +13,7 @@ export async function getImage(imgSearch, page) {
         orientation: 'horizontal',
         safesearch: true,
         page: page,
-        per_page: 200,
+        per_page: 15,
       },
     });
     return response.data;

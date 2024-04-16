@@ -85,10 +85,12 @@ async function onSearch(e) {
         timeout: 2000,
       });
       toggleLoadMoreButton(false);
+      input.value = '';
       return;
     }
     renderGallery(imageData.hits);
-    input.value = '';
+   
+
     toggleLoadMoreButton(imageData.totalHits);
   } catch (error) {
     //console.error('Error fetching images:', error);
@@ -116,7 +118,20 @@ async function onLoadMore() {
   try {
     const imageData = await getImage(query, page);
     renderGallery(imageData.hits);
-    toggleLoadMoreButton(imageData.totalHits);
+    // Если количество загруженных изображений равно или больше общего количества изображений
+    if (gallery.querySelectorAll('.gallery-item').length >= imageData.totalHits) { 
+      toggleLoadMoreButton(false); 
+      iziToast.warning({
+        title: 'Caution',
+        message: 'No more images found.',
+        backgroundColor: '#FFA000',
+        position: 'topRight',
+        theme: 'dark',
+        iconUrl: '',
+        timeout: 2000,
+      });
+    }
+    toggleLoadMoreButton(imageData.totalHits > page * 15);
     // Smooth scroll to bottom
     window.scrollBy({
       top: window.innerHeight,
